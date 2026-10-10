@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="top" x1="70" y1="157" x2="449" y2="125" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#37E8F2"/>
+      <stop offset=".43" stop-color="#087BFF"/>
+      <stop offset=".78" stop-color="#3938F5"/>
+      <stop offset="1" stop-color="#C788FF"/>
+    </linearGradient>
+    <linearGradient id="bottom" x1="102" y1="367" x2="381" y2="342" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4C19F6"/>
+      <stop offset=".43" stop-color="#0755F5"/>
+      <stop offset=".8" stop-color="#15C9F4"/>
+      <stop offset="1" stop-color="#83F7FF"/>
+    </linearGradient>
+    <linearGradient id="topLight" x1="150" y1="71" x2="307" y2="263" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A5FFFF" stop-opacity=".8"/>
+      <stop offset=".44" stop-color="#42D9FF" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bottomLight" x1="370" y1="269" x2="211" y2="486" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A1FFFF" stop-opacity=".85"/>
+      <stop offset=".55" stop-color="#53CBFF" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M69 300c0-115 31-178 130-216L435 8c17-5 29 7 27 24-10 88-52 129-146 156l-171 49c-39 11-63 31-76 63Z" fill="url(#top)"/>
+  <path d="M71 297c7-91 35-146 111-184 32-16 101-38 196-66-86 34-155 63-206 97-58 38-83 86-101 153Z" fill="url(#topLight)"/>
+  <path d="M72 315c18-30 46-51 87-65 62-22 150-34 222-26 37 4 54 25 44 54-14 40-47 65-103 82-67 20-92 48-109 100-10 31-37 48-67 37-47-17-75-57-79-111-2-27 0-50 5-71Z" fill="url(#bottom)"/>
+  <path d="M92 285c48-55 106-83 184-92-75 19-132 47-168 88-40 45-49 103-30 164-31-37-39-101 14-160Z" fill="#B979FF" opacity=".72"/>
+  <path d="M398 230c18 8 27 23 21 43-13 42-47 67-105 84-68 20-96 48-113 105 4-68 35-111 97-137 54-22 89-47 100-95Z" fill="url(#bottomLight)"/>
+</svg>

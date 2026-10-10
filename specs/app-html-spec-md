@@ -1,0 +1,233 @@
+# App.html Full Specification
+
+## Design Tokens Reference
+Use these exact CSS custom property names (defined in css/tokens.css):
+- --color-bg: #FAFAFA, --color-bg-alt: #F5F5F7, --color-bg-elevated: #FFFFFF
+- --color-fg: #1A1A2E, --color-fg-secondary: #6B7280, --color-fg-muted: #9CA3AF, --color-fg-inverse: #FFFFFF
+- --color-border: #E5E7EB, --color-border-light: #F3F4F6
+- --color-primary: #4F46E5, --color-primary-hover: #4338CA, --color-primary-light: #EEF2FF
+- --color-ai: #6366F1, --color-ai-light: #EEF2FF, --color-ai-glow: rgba(99, 102, 241, 0.12)
+- --color-success: #059669, --color-warning: #D97706, --color-destructive: #DC2626
+- Font: --font-sans: 'Inter', ...
+- Sizes: --text-xs(0.75rem) through --text-6xl(3.75rem)
+- Spacing: --space-1(4px) through --space-32
+- Radii: --radius-sm(6px) through --radius-full
+- Shadows: --shadow-xs through --shadow-xl (very subtle)
+
+## HTML Document Setup
+- DOCTYPE html, lang="en", proper meta tags
+- Title: "FUSIQ AI"
+- Link CSS files in order: css/tokens.css, css/base.css, css/components.css, css/animations.css, css/app.css, css/responsive.css
+- Google Fonts: Inter weights 400,500,600,700
+- Scripts (defer): js/animations.js, js/search.js, js/app.js
+- Use inline SVGs for all icons (24px viewBox, stroke-width 1.5-2, stroke-linecap round, stroke-linejoin round, fill none, stroke currentColor)
+
+## Top Navigation
+```html
+<nav class="nav" id="app-nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">FUSIQ <span class="ai">AI</span></a>
+    <div class="nav-links">
+      <a href="#home" class="nav-link active" data-view="home">Home</a>
+      <a href="#explore" class="nav-link" data-view="explore">Explore</a>
+      <a href="#saved" class="nav-link" data-view="saved">Saved</a>
+      <a href="#activity" class="nav-link" data-view="activity">Activity</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="notifications-btn" aria-label="Notifications">
+        <!-- Bell SVG --><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-dot"></span>
+      </button>
+      <button class="btn-icon" id="profile-btn" data-view="profile" aria-label="Profile">
+        <!-- User SVG --><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+```
+
+## Main Content: `<main id="app-main">`
+
+All views are `<section>` elements with class "view". Only one has class "active" at a time.
+
+### VIEW: HOME (`#view-home`)
+```
+<section id="view-home" class="view active">
+```
+Contains:
+1. **Home Hero** (.home-hero): centered, max-width 720px
+   - .hero-label: "THE UNIVERSAL AI INTERFACE" (uppercase, letter-spacing, primary color, tiny font)
+   - h1.hero-headline: "Tell us what you need."
+   - p.hero-subtitle: "Search across services, compare your options, and make better decisions — all from one place."
+   
+2. **AI Search Bar** (#search-container):
+   - form#search-form.search-bar containing:
+     - input#ai-search-input.search-input with placeholder "Try: Find a laptop under ₹70,000 for AI development..."
+     - .search-actions with 3 buttons:
+       - #voice-btn (mic SVG) 
+       - #image-btn (image SVG)
+       - #search-btn.search-submit-btn (arrow-right SVG, primary bg color)
+
+3. **Suggested Searches** (.suggested-searches):
+   - 4 buttons with class .suggestion-chip and data-query attributes:
+     - "Find an AI internship" (data-query="Find an AI internship in Bangalore")
+     - "Plan my trip" (data-query="Plan a 3-day trip to Goa under ₹15,000")
+     - "Find a laptop" (data-query="Find a laptop under ₹70,000 for AI development")
+     - "Find dinner nearby" (data-query="Find dinner nearby with good reviews under ₹500")
+
+4. **Quick Categories** (.home-categories.container):
+   - h2.section-label: "Explore by category"
+   - .quick-categories-grid with 6 category buttons:
+     - Shopping (bag SVG), Jobs (briefcase SVG), Travel (globe SVG), Food (coffee SVG), Transport (truck SVG), Healthcare (activity SVG)
+   - Each: button.quick-category with data-category, containing .quick-category-icon > SVG + span with name
+
+5. **Connected Services** (.home-providers.container):
+   - h2.section-label: "Connected services"
+   - p.section-sublabel: "Searching across 100+ providers to find you the best options"
+   - .providers-ticker: scrolling row of .provider-pill elements:
+     - Amazon, Flipkart, Swiggy, Zomato, MakeMyTrip, LinkedIn, Uber, Practo, UrbanClap, Internshala, Booking.com, Croma
+     - Duplicate the first 6 for seamless scroll animation
+
+### VIEW: EXPLORE (`#view-explore`)
+```
+<section id="view-explore" class="view">
+  <div class="container">
+```
+- .explore-header: h1.page-title "Explore" + p.page-subtitle "Browse services by category"
+- .categories-grid: 9 category cards (.category-card with data-category):
+  1. Shopping (bag icon) - "42 providers"
+  2. Jobs (briefcase) - "18 providers"
+  3. Travel (globe) - "24 providers"
+  4. Food (coffee cup) - "15 providers"
+  5. Transport (truck) - "12 providers"
+  6. Healthcare (activity/pulse) - "20 providers"
+  7. Home Services (home icon) - "16 providers"
+  8. Education (book icon) - "22 providers"
+  9. Entertainment (video icon) - "14 providers"
+- Each card: .category-icon (SVG) + h3.category-name + p.category-count
+
+### VIEW: RESULTS (`#view-results`)
+```
+<section id="view-results" class="view">
+  <div class="container">
+```
+
+**Part A: AI Processing State** (#ai-processing.ai-processing-container):
+- .ai-processing-header: icon (lightning bolt SVG in ai-light bg) + h2 "Understanding your request"
+- .processing-steps: 4 processing-step divs (each with .step-check "✓", .step-label, .step-value):
+  1. Budget: ₹70,000
+  2. Category: Laptop
+  3. Purpose: AI development
+  4. Priority: Performance
+- .processing-search: .ai-processing-bar (animated progress) + .processing-status "Searching connected providers..."
+
+**Part B: Results Content** (#results-content, initially display:none):
+- .results-header: .results-meta (h1.results-count "37 options found" + p.results-query) + .results-sort (select with options: Recommended, Price Low, Price High, Rating, Performance)
+- .ai-insight: "✦ I found several laptops matching your budget and AI development requirements. I've prioritized GPU performance, RAM, and overall value for machine learning workloads."
+- .results-filters: filter chips (All [active], Under ₹60K, ₹60K-₹70K, 16GB+ RAM, RTX GPU, SSD 512GB+, Top Rated)
+- #results-grid: 6 result cards:
+
+**Card 1 - AI Match** (.result-card.ai-match):
+- .ai-match-badge: "✦ AI Match"
+- .result-card-body: image placeholder + info (provider "Amazon", title "ASUS TUF Gaming F15", price "₹67,990", specs as badges [16GB RAM, RTX 4050, 512GB SSD, 144Hz], rating 4.3 (2,847))
+- .ai-explanation: "✦ Strong match for AI development — RTX 4050 GPU supports CUDA for ML training, 16GB RAM handles most datasets, and the price is well within your budget."
+- .result-card-actions: View details (primary), Compare (secondary, data-product-id="1"), Visit provider (ghost)
+
+**Cards 2-6** (regular .result-card, same structure without ai-match):
+- Card 2: Lenovo IdeaPad Gaming 3, ₹62,490, 16GB RAM, RTX 3050, 512GB SSD, 4.1 (1,923), Flipkart, data-product-id="2"
+- Card 3: HP Victus 15, ₹58,990, 8GB RAM, RTX 3050, 512GB SSD, 4.0 (3,105), Croma, data-product-id="3"
+- Card 4: Acer Nitro V Gaming, ₹69,990, 16GB RAM, RTX 4050, 1TB SSD, 4.2 (1,456), Amazon, data-product-id="4"
+- Card 5: MSI Thin GF63, ₹54,990, 8GB RAM, RTX 2050, 512GB SSD, 3.8 (987), Flipkart, data-product-id="5"
+- Card 6: Dell G15 Gaming, ₹65,490, 16GB RAM, RTX 3050, 512GB SSD, 4.1 (2,234), Croma, data-product-id="6"
+
+**Comparison Floating Bar** (#compare-bar, initially display:none):
+- Fixed bottom bar with: span.compare-bar-count + #compare-now-btn (primary) + #compare-clear-btn (ghost)
+
+### VIEW: COMPARISON (`#view-comparison`)
+```
+<section id="view-comparison" class="view">
+  <div class="container">
+```
+- .comparison-header: back button (#back-to-results "← Back to results"), h1 "Compare options", p "Side-by-side comparison of your selected options"
+- #comparison-grid.comparison-grid: 2 columns
+
+**Column 1** (.comparison-column):
+- .comparison-product-header: image placeholder, h3 "ASUS TUF Gaming F15", price "₹67,990", .ai-match-badge "✦ AI Match"
+- .comparison-rows: 11 rows (Price ₹67,990, Rating 4.3★, RAM 16GB DDR5, GPU RTX 4050 [highlighted], Storage 512GB SSD, Display 15.6" 144Hz, Battery ~6 hours, Weight 2.2 kg, Warranty 1 Year, Delivery 2-3 days, Provider Amazon)
+- .comparison-action: View details button (primary)
+
+**Column 2** (.comparison-column):
+- Header: "Acer Nitro V Gaming", ₹69,990, no badge
+- Rows: same structure, highlight Rating, GPU [highlighted], Storage 1TB SSD [highlighted]
+- Action: View details button (secondary)
+
+**AI Comparison Insight** (.ai-comparison-insight):
+- .ai-insight with: "✦ AI Comparison" title + paragraph: "The Acer Nitro V costs ₹2,000 more but provides double the storage (1TB vs 512GB SSD). Both have the same RTX 4050 GPU and 16GB RAM. The ASUS TUF has a slightly better rating and faster delivery. For AI development, both are excellent choices — pick the ASUS for better value, or the Acer if storage matters for large datasets."
+
+### VIEW: SAVED (`#view-saved`)
+```
+<section id="view-saved" class="view">
+  <div class="container">
+```
+- Header: h1 "Saved", p "Your bookmarked items across all categories"
+- .tabs: tab buttons (All [active], Products, Jobs, Trips, Services, Comparisons)
+- #saved-grid.saved-grid: 4 saved cards:
+  1. Product badge (primary) - "ASUS TUF Gaming F15" - "₹67,990 · Amazon" - "Saved 2 days ago"
+  2. Job badge (ai) - "AI Research Intern — Google DeepMind" - "Bangalore · ₹60K/month" - "Saved 5 days ago"
+  3. Trip badge (success) - "Goa Weekend Getaway" - "3 days · ₹12,500 · MakeMyTrip" - "Saved 1 week ago"
+  4. Comparison badge (warning) - "Laptops: ASUS vs Acer vs HP" - "3 items compared" - "Saved 2 days ago"
+- Each card has View + Remove buttons
+
+### VIEW: ACTIVITY (`#view-activity`)
+```
+<section id="view-activity" class="view">
+  <div class="container">
+```
+- Header: h1 "Activity", p "Your recent searches and actions"
+- .activity-timeline with .activity-day groups:
+
+**Today:**
+- Search icon (primary bg): Searched for "laptop under ₹70,000 for AI development" - 2 hours ago
+- Compare icon (secondary bg): Compared ASUS TUF Gaming and Acer Nitro V - 2 hours ago
+- Save icon (warning bg): Saved ASUS TUF Gaming F15 - 1 hour ago
+
+**Yesterday:**
+- Search: "AI internship in Bangalore" - Yesterday, 4:30 PM
+- View icon (success bg): Viewed Google DeepMind AI Intern on LinkedIn - Yesterday, 4:35 PM
+- Save: AI Research Intern — Google DeepMind - Yesterday, 4:36 PM
+
+**Last Week:**
+- Search: "weekend trip to Goa under ₹15,000" - Sep 28, 2026
+- Save: Goa Weekend Getaway - Sep 28, 2026
+
+Each activity-item: .activity-icon (with type-specific class and SVG) + .activity-content (p.activity-text + span.activity-time)
+
+### VIEW: PROFILE (`#view-profile`)
+```
+<section id="view-profile" class="view">
+  <div class="container">
+```
+- .profile-header: .profile-avatar (user SVG) + .profile-info (h1 "Your Profile", p "Manage your account, preferences, and privacy")
+
+**Sections** (.profile-section each):
+
+1. **Account**: Name "Arjun Sharma" + Edit btn, Email "arjun@example.com" + Edit btn
+2. **AI Preferences**: description text + .preference-tags (Budget conscious [active], Fast delivery [active], Highly rated [active], Performance focused, Eco-friendly, Premium brands, Local sellers)
+3. **Connected Services**: Shopping "Amazon, Flipkart, Croma" + Manage, Food "Swiggy, Zomato" + Manage, Travel "MakeMyTrip, Booking.com" + Manage
+4. **Privacy & Security**: Search history toggle (active), AI personalization toggle (active), Data sharing toggle (off), Delete all data (destructive red btn)
+5. **Appearance**: Theme "Light" + Change btn
+6. **Notifications**: Price drop alerts toggle (active), New matches toggle (active)
+
+Each setting-row: .setting-info (.setting-label + .setting-value) + button or .toggle
+Toggle: .toggle with .toggle-thumb, .active class means on
+
+## Bottom Navigation (mobile)
+```html
+<nav class="bottom-nav" id="bottom-nav">
+```
+4 items (Home, Explore, Saved, Activity) each with SVG icon + span label, data-view attribute, first one has .active class
+
+## Toast Container
+```html
+<div class="toast-container" id="toast-container"></div>
+```
